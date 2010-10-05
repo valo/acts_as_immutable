@@ -39,8 +39,7 @@ module ActsAsImmutable
           # Allow attributes to be written if they have not changed,
           # required when associations are saved but not changed
           value_changed = read_attribute(attr_name) != value
-          
-          if new_record? || !value_changed || (mutable_attributes.include?(attr_name) && @mutable_condition)
+          if new_record? || !value_changed || (mutable_attributes.include?(attr_name.to_s) && @mutable_condition)
             _write_attribute(attr_name, value)
           else
             errors.add(attr_name, "is an immutable attribute")
